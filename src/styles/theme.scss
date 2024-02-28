@@ -1,0 +1,17 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$appRindus-primary: mat.define-palette(mat.$indigo-palette);
+$appRindus-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$appRindus-warn: mat.define-palette(mat.$red-palette);
+
+$appRindus-theme: mat.define-light-theme((
+  color: (
+    primary: $appRindus-primary,
+    accent: $appRindus-accent,
+    warn: $appRindus-warn,
+  )
+));
+
+@include mat.all-component-themes($appRindus-theme);
