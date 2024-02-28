@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { UserManagementFormComponent } from '@app/modules/dashboard/components/user-management/user-management-form/user-management-form.component';
-import { UserManagementTableComponent } from '@app/modules/dashboard/components/user-management/user-management-table/user-management-table.component';
+import {
+  UserManagementFormComponent,
+  UserManagementTableComponent,
+} from '@app/modules/dashboard/components/user-management';
 
 @Component({
   selector: 'app-user-management',
