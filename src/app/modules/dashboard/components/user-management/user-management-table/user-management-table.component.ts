@@ -1,47 +1,19 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { AppState } from '@app/app.reducer';
+import { UserDataResponse } from '@app/modules/dashboard/models/UserDataResponse';
+import { UnsubscriptionComponent } from '@app/shared/components/unsubscription';
+import { Store } from '@ngrx/store';
+import { takeUntil } from 'rxjs';
 
-export interface UserData {
-  id: string;
-  name: string;
-  surname: string;
-  email: string;
-}
-
-/** Constants used to fill up our data base. */
-const EMAIL: string[] = [
-  'blueberry@gmail.com',
-  'lychee@gmail.com',
-  'kiwi@gmail.com',
-  'mango@gmail.com',
-  'peach@gmail.com',
-  'lime@gmail.com',
-  'pomegranate@gmail.com',
-  'pineapple@gmail.com',
-];
-const NAMES: string[] = [
-  'Maia',
-  'Asher',
-  'Olivia',
-  'Atticus',
-  'Amelia',
-  'Jack',
-  'Charlotte',
-  'Theodore',
-  'Isla',
-  'Oliver',
-  'Isabella',
-  'Jasper',
-  'Cora',
-  'Levi',
-  'Violet',
-  'Arthur',
-  'Mia',
-  'Thomas',
-  'Elizabeth',
-];
 @Component({
   selector: 'app-user-management-table',
   standalone: true,
@@ -49,42 +21,32 @@ const NAMES: string[] = [
   templateUrl: './user-management-table.component.html',
   styleUrl: './user-management-table.component.scss',
 })
-export class UserManagementTableComponent implements AfterViewInit {
+export class UserManagementTableComponent
+  extends UnsubscriptionComponent
+  implements AfterViewInit, OnInit, OnDestroy
+{
   displayedColumns: string[] = ['id', 'name', 'surname', 'email'];
-  dataSource: MatTableDataSource<UserData>;
+  dataSource: MatTableDataSource<UserDataResponse>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor() {
-    // Create 100 users
-    const users = Array.from({ length: 100 }, (_, k) =>
-      this.createNewUser(k + 1)
-    );
+  constructor(private store: Store<AppState>) {
+    super();
+    this.dataSource = new MatTableDataSource();
+  }
 
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
+  ngOnInit(): void {
+    this.store
+      .select('users')
+      .pipe(takeUntil(this.notifyUnsubscription))
+      .subscribe(({ users }) => {
+        this.dataSource.data = users;
+      });
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-  }
-
-  createNewUser(id: number): UserData {
-    const name =
-      NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
-      ' ' +
-      NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
-      '.';
-
-    return {
-      id: id.toString(),
-      name: name,
-      surname: Math.round(Math.random() * 100)
-        .toString()
-        .concat(name),
-      email: EMAIL[Math.round(Math.random() * (EMAIL.length - 1))],
-    };
   }
 }
