@@ -10,7 +10,7 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { AppState } from '@app/app.reducer';
 import { UserDataResponse } from '@app/modules/dashboard/models/UserDataResponse';
-import { UnsubscriptionComponent } from '@app/shared/components/unsubscription';
+import { UnsubscriptionComponent } from '@app/shared/components';
 import { Store } from '@ngrx/store';
 import { takeUntil } from 'rxjs';
 
