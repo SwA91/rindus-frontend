@@ -1,3 +1,9 @@
+<p align="center">
+    <img src="src/assets/preview/angular.png" width="150">
+    <img src="src/assets/preview/tailwindcss.svg" width="150">
+    <img src="src/assets/preview/material.png" width="150">
+</p>
+
 # AppRindus
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.1.
