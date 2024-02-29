@@ -52,6 +52,9 @@ npm install
 
 # Build and run local dev server
 npm start
+
+# URL App
+http://localhost:4200/
 ```
 
 #### Dependencies
