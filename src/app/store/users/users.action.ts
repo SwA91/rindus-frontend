@@ -16,5 +16,5 @@ export const loadUsersSuccessAction = createAction(
 
 export const loadUsersErrorAction = createAction(
   UsersActionType.LoadUsersError,
-  props<{ payload: any }>()
+  props<{ payload: unknown }>()
 );

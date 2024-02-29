@@ -41,7 +41,7 @@ export const updateUserSuccessAction = createAction(
 
 export const updateUserErrorAction = createAction(
   UserActionType.UpdateUserError,
-  props<{ payload: any }>()
+  props<{ payload: unknown }>()
 );
 
 export const addUserAction = createAction(
@@ -56,7 +56,7 @@ export const addUserSuccessAction = createAction(
 
 export const addUserErrorAction = createAction(
   UserActionType.AddUserError,
-  props<{ payload: any }>()
+  props<{ payload: unknown }>()
 );
 
 export const loadUserAction = createAction(
@@ -71,7 +71,7 @@ export const loadUserSuccessAction = createAction(
 
 export const loadUserErrorAction = createAction(
   UserActionType.LoadUserError,
-  props<{ payload: any }>()
+  props<{ payload: unknown }>()
 );
 
 export const deleteUserAction = createAction(
@@ -85,5 +85,5 @@ export const deleteUserSuccessAction = createAction(
 
 export const deleteUserErrorAction = createAction(
   UserActionType.DeleteUserError,
-  props<{ payload: any }>()
+  props<{ payload: unknown }>()
 );

@@ -5,7 +5,7 @@ import * as userAction from './user.action';
 
 export interface UserState {
   user: UserDataResponse | null;
-  payload: any;
+  payload: unknown;
   operation: EUserTypeOperation;
   operationComplete: boolean;
 }
@@ -53,7 +53,7 @@ export const userReducer = createReducer(
     userAction.deleteUserErrorAction,
     (state, { payload }): UserState => ({
       ...state,
-      payload: { ...payload },
+      payload: { ...(payload as object) },
       user: null,
       operationComplete: false,
     })
@@ -76,7 +76,7 @@ export const userReducer = createReducer(
     userAction.updateUserErrorAction,
     (state, { payload }): UserState => ({
       ...state,
-      payload: { ...payload },
+      payload: { ...(payload as object) },
       operationComplete: false,
     })
   ),
@@ -98,7 +98,7 @@ export const userReducer = createReducer(
     userAction.addUserErrorAction,
     (state, { payload }): UserState => ({
       ...state,
-      payload: { ...payload },
+      payload: { ...(payload as object) },
       operationComplete: false,
     })
   ),
@@ -122,7 +122,7 @@ export const userReducer = createReducer(
     userAction.loadUserErrorAction,
     (state, { payload }): UserState => ({
       ...state,
-      payload: { ...payload },
+      payload: { ...(payload as object) },
       user: null,
     })
   )

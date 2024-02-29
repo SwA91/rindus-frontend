@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AppState } from '@app/app.reducer';
+import { selectUser, selectUsers } from '@app/app.selectors';
 import {
   UserManagementFormComponent,
   UserManagementTableComponent,
@@ -33,8 +33,11 @@ export class UserManagementComponent
   extends UnsubscriptionComponent
   implements OnInit
 {
+  userState$ = this.store.select(selectUser);
+  usersState$ = this.store.select(selectUsers);
+
   constructor(
-    private store: Store<AppState>,
+    private store: Store,
     private notification: NotificationService
   ) {
     super();
@@ -74,8 +77,7 @@ export class UserManagementComponent
   }
 
   private controlStoreUser() {
-    this.store
-      .select('user')
+    this.userState$
       .pipe(takeUntil(this.notifyUnsubscription))
       .subscribe(({ payload, operationComplete }) => {
         if (payload) this.notifyError();
@@ -85,8 +87,7 @@ export class UserManagementComponent
   }
 
   private controlStoreUsers() {
-    this.store
-      .select('users')
+    this.usersState$
       .pipe(takeUntil(this.notifyUnsubscription))
       .subscribe(({ payload }) => {
         if (payload) {

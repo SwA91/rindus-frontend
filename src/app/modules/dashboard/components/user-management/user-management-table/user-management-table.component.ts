@@ -10,7 +10,7 @@ import {
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { AppState } from '@app/app.reducer';
+import { selectUsers } from '@app/app.selectors';
 import { UserDataResponse } from '@app/modules/dashboard/models/UserResponse';
 import { UnsubscriptionComponent } from '@app/shared/components';
 import { Store } from '@ngrx/store';
@@ -30,19 +30,19 @@ export class UserManagementTableComponent
   displayedColumns: string[] = ['id', 'name', 'surname', 'email'];
   dataSource: MatTableDataSource<UserDataResponse>;
   clickedRow: UserDataResponse | null = null;
+  usersState$ = this.store.select(selectUsers);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @Output() selectedRow = new EventEmitter<UserDataResponse>();
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store) {
     super();
     this.dataSource = new MatTableDataSource();
   }
 
   ngOnInit(): void {
-    this.store
-      .select('users')
+    this.usersState$
       .pipe(takeUntil(this.notifyUnsubscription))
       .subscribe(({ users }) => {
         this.dataSource.data = users;

@@ -8,7 +8,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { AppState } from '@app/app.reducer';
+import { selectUser } from '@app/app.selectors';
 import {
   EUserTypeOperation,
   IUserDataOperation,
@@ -36,22 +36,23 @@ export class UserManagementFormComponent
   userManagementForm!: FormGroup;
   UserTypeOperation = EUserTypeOperation;
   currentOperation = EUserTypeOperation.ADD;
+  userState$ = this.store.select(selectUser);
+  
   @Output() typeRequest = new EventEmitter<IUserDataOperation>();
 
-  constructor(private store: Store<AppState>) {
+  constructor(private readonly store: Store) {
     super();
     this.userManagementForm = this.resetForm;
   }
 
   ngOnInit(): void {
-    this.store
-      .select('user')
+    this.userState$
       .pipe(takeUntil(this.notifyUnsubscription))
-      .subscribe(({ user, operation }) => {
-        this.currentOperation = operation;
+      .subscribe(param => {
+        this.currentOperation = param.operation;
 
-        if (user) {
-          this.userManagementForm.patchValue(user);
+        if (param.user) {
+          this.userManagementForm.patchValue(param.user);
           this.userManagementForm.get('email')?.disable();
         } else {
           this.userManagementForm.reset(this.resetForm);

@@ -1,10 +1,10 @@
+import { UserDataResponse } from '@app/modules/dashboard/models/UserResponse';
 import { createReducer, on } from '@ngrx/store';
 import * as usersAction from './users.action';
-import { UserDataResponse } from '@app/modules/dashboard/models/UserResponse';
 
 export interface UsersState {
   users: UserDataResponse[];
-  payload: any;
+  payload: unknown;
 }
 
 export const usersInitialState: UsersState = {
@@ -30,7 +30,7 @@ export const usersReducer = createReducer(
     usersAction.loadUsersErrorAction,
     (state, { payload }): UsersState => ({
       ...state,
-      payload: { ...payload },
+      payload: { ...(payload as object) },
       users: [],
     })
   )
