@@ -6,7 +6,7 @@
 
 ## Motivation
 
-This project is a code task for Full Stack Developer. this is the parte Front-end.
+This project is a code task for Full Stack Developer, this is the part front-end.
 
 ## Demo
 
@@ -16,12 +16,11 @@ This project is a code task for Full Stack Developer. this is the parte Front-en
 
 #### Features
 
-- [x] Dashboard Module
-- [x] NotFound Module
+- [x] Dashboard Module with page UserManagement
+- [x] Error Module with page NotFound
 - [x] Standalone components
 - [x] NgRx Store
 - [x] NgRx Effects
-- [x] NgRx Selectors
 - [x] Tests E2E
 - [x] ESLint
 - [x] LazyLoad
