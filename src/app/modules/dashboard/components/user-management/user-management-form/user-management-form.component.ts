@@ -1,4 +1,3 @@
-import { JsonPipe } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {
   FormControl,
@@ -22,7 +21,6 @@ import { takeUntil } from 'rxjs';
   selector: 'app-user-management-form',
   standalone: true,
   imports: [
-    JsonPipe,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
