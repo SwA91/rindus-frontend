@@ -38,6 +38,7 @@ This project is a code task for Full Stack Developer, this is the part front-end
 ### Local Development
 
 you can setup a local environment with the following commands:
+#### Note: Don't forget to set up project [rindus-backend](https://github.com/SwA91/rindus-backend.git)
 
 ```bash
 # Clone repo
@@ -50,7 +51,6 @@ cd rindus-frontend
 npm install
 
 # Build and run local dev server
-# Note: Don't forget to start up rindus-backend
 npm start
 ```
 
