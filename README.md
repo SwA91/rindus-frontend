@@ -40,7 +40,7 @@ This project is a code task for Full Stack Developer, this is the part front-end
 you can setup a local environment with the following commands:
 
 ```bash
-# Clone Angular repo
+# Clone repo
 git clone https://github.com/SwA91/rindus-frontend.git
 
 # Navigate to project directory
