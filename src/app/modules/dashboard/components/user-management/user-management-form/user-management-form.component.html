@@ -8,18 +8,45 @@
     <mat-form-field class="w-full">
       <mat-label>First Name</mat-label>
       <input matInput formControlName="name" name="name" type="text" />
+
+      @if (name?.hasError('minlength') && !name?.hasError('required')) {
+        <mat-error
+          >Name too short (minimum
+          {{ name?.getError('minlength')['requiredLength'] }}
+          characters)</mat-error
+        >
+      }
+      @if ((name?.dirty || name?.touched) && name?.hasError('required')) {
+        <mat-error>Name is <strong>required</strong></mat-error>
+      }
     </mat-form-field>
 
     <mat-form-field class="w-full">
       <mat-label>Last Name</mat-label>
       <input type="text" matInput formControlName="surname" />
+      @if (surname?.hasError('minlength') && !surname?.hasError('required')) {
+        <mat-error
+          >Surname too short (minimum
+          {{ surname?.getError('minlength')['requiredLength'] }}
+          characters)</mat-error
+        >
+      }
+      @if ((surname?.dirty || surname?.touched) && surname?.hasError('required')) {
+        <mat-error>Surname is <strong>required</strong></mat-error>
+      }
     </mat-form-field>
 
     <mat-form-field class="w-full">
       <mat-label>Email</mat-label>
       <input type="email" matInput formControlName="email" />
+      @if (email?.hasError('email') && !email?.hasError('required')) {
+        <mat-error>Please enter a valid email address</mat-error>
+      }
+      @if ((email?.dirty || email?.touched) && email?.hasError('required')) {
+        <mat-error>Email is <strong>required</strong></mat-error>
+      }
     </mat-form-field>
-    <div class="flex justify-center">
+    <div class="mt-4 flex justify-center">
       <button
         (click)="requestAction(UserTypeOperation.ADD)"
         name="add"

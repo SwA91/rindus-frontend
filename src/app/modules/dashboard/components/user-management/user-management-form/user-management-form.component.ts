@@ -1,3 +1,4 @@
+import { JsonPipe } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {
   FormControl,
@@ -21,6 +22,7 @@ import { takeUntil } from 'rxjs';
   selector: 'app-user-management-form',
   standalone: true,
   imports: [
+    JsonPipe,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -40,16 +42,7 @@ export class UserManagementFormComponent
 
   constructor(private store: Store<AppState>) {
     super();
-    this.userManagementForm = new FormGroup({
-      // TODO añadir mensajes de validaciones
-      id: new FormControl({ value: null, disabled: true }),
-      name: new FormControl('', [Validators.required, Validators.minLength(4)]),
-      surname: new FormControl('', [
-        Validators.required,
-        Validators.minLength(4),
-      ]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-    });
+    this.userManagementForm = this.resetForm;
   }
 
   ngOnInit(): void {
@@ -63,14 +56,17 @@ export class UserManagementFormComponent
           this.userManagementForm.patchValue(user);
           this.userManagementForm.get('email')?.disable();
         } else {
-          this.userManagementForm.reset();
+          this.userManagementForm.reset(this.resetForm);
           this.userManagementForm.get('email')?.enable();
         }
       });
   }
 
   requestAction(typeRequest: EUserTypeOperation) {
-    if (this.userManagementForm.valid) {
+    if (
+      this.userManagementForm.valid &&
+      (this.userManagementForm.touched || this.userManagementForm.dirty)
+    ) {
       this.currentOperation = typeRequest;
       this.typeRequest.emit({
         formValue: this.userManagementForm.getRawValue(),
@@ -92,5 +88,28 @@ export class UserManagementFormComponent
       default:
         return true;
     }
+  }
+
+  get resetForm() {
+    return new FormGroup({
+      id: new FormControl({ value: null, disabled: true }),
+      name: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      surname: new FormControl('', [
+        Validators.required,
+        Validators.minLength(4),
+      ]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+    });
+  }
+
+  get email() {
+    return this.userManagementForm.get('email');
+  }
+
+  get name() {
+    return this.userManagementForm.get('name');
+  }
+  get surname() {
+    return this.userManagementForm.get('surname');
   }
 }
