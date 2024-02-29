@@ -48,6 +48,7 @@ git clone https://github.com/SwA91/rindus-frontend.git
 cd rindus-frontend
 
 # Install dependencies
+# Note: Recommended Node.js minimum v20
 npm install
 
 # Build and run local dev server
