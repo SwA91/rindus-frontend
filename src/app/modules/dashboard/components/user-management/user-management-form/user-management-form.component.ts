@@ -98,17 +98,17 @@ export class UserManagementFormComponent
       name: new FormControl('', [
         Validators.required,
         Validators.minLength(4),
-        Validators.maxLength(250),
+        Validators.maxLength(100),
       ]),
       surname: new FormControl('', [
         Validators.required,
         Validators.minLength(4),
-        Validators.maxLength(250),
+        Validators.maxLength(100),
       ]),
       email: new FormControl('', [
         Validators.required,
         Validators.email,
-        Validators.maxLength(250),
+        Validators.maxLength(100),
       ]),
     });
   }
