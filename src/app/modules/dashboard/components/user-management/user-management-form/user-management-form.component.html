@@ -11,7 +11,7 @@
 
       @if (name?.hasError('minlength') && !name?.hasError('required')) {
         <mat-error
-          >Name too short (minimum
+          >First Name too short (minimum
           {{ name?.getError('minlength')['requiredLength'] }}
           characters)</mat-error
         >
@@ -19,14 +19,14 @@
 
       @if (name?.hasError('maxlength') && !name?.hasError('required')) {
         <mat-error
-          >Name too long (maximum
+          >First Name too long (maximum
           {{ name?.getError('maxlength')['requiredLength'] }}
           characters)</mat-error
         >
       }
 
       @if ((name?.dirty || name?.touched) && name?.hasError('required')) {
-        <mat-error>Name is <strong>required</strong></mat-error>
+        <mat-error>First Name is <strong>required</strong></mat-error>
       }
     </mat-form-field>
 
@@ -36,7 +36,7 @@
 
       @if (surname?.hasError('minlength') && !surname?.hasError('required')) {
         <mat-error
-          >Surname too short (minimum
+          >Last Name too short (minimum
           {{ surname?.getError('minlength')['requiredLength'] }}
           characters)</mat-error
         >
@@ -44,7 +44,7 @@
 
       @if (surname?.hasError('maxlength') && !surname?.hasError('required')) {
         <mat-error
-          >Surname too long (maximum
+          >Last Name too long (maximum
           {{ surname?.getError('maxlength')['requiredLength'] }}
           characters)</mat-error
         >
@@ -53,7 +53,7 @@
       @if (
         (surname?.dirty || surname?.touched) && surname?.hasError('required')
       ) {
-        <mat-error>Surname is <strong>required</strong></mat-error>
+        <mat-error>Last Name is <strong>required</strong></mat-error>
       }
     </mat-form-field>
 
