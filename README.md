@@ -38,7 +38,7 @@ This project is a code task for Full Stack Developer. this is the parte Front-en
 
 ### Local Development
 
-To contribute to Angular docs, you can setup a local environment with the following commands:
+you can setup a local environment with the following commands:
 
 ```bash
 # Clone Angular repo
