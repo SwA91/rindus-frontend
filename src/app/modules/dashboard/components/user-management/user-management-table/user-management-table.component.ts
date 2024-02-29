@@ -1,15 +1,17 @@
 import {
   AfterViewInit,
   Component,
+  EventEmitter,
   OnDestroy,
   OnInit,
+  Output,
   ViewChild,
 } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { AppState } from '@app/app.reducer';
-import { UserDataResponse } from '@app/modules/dashboard/models/UserDataResponse';
+import { UserDataResponse } from '@app/modules/dashboard/models/UserResponse';
 import { UnsubscriptionComponent } from '@app/shared/components';
 import { Store } from '@ngrx/store';
 import { takeUntil } from 'rxjs';
@@ -27,9 +29,11 @@ export class UserManagementTableComponent
 {
   displayedColumns: string[] = ['id', 'name', 'surname', 'email'];
   dataSource: MatTableDataSource<UserDataResponse>;
+  clickedRow: UserDataResponse | null = null;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  @Output() selectedRow = new EventEmitter<UserDataResponse>();
 
   constructor(private store: Store<AppState>) {
     super();
@@ -42,11 +46,22 @@ export class UserManagementTableComponent
       .pipe(takeUntil(this.notifyUnsubscription))
       .subscribe(({ users }) => {
         this.dataSource.data = users;
+        this.clickedRow = null;
       });
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  sendSelectedRow(row: UserDataResponse) {
+    if (row.id === this.clickedRow?.id) {
+      this.selectedRow.emit();
+      this.clickedRow = null;
+    } else {
+      this.selectedRow.emit(row);
+      this.clickedRow = row;
+    }
   }
 }

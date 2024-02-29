@@ -1,2 +1,4 @@
-<app-user-management-table></app-user-management-table>
-<app-user-management-form></app-user-management-form>
+<app-user-management-table
+  (selectedRow)="processRow($event)"></app-user-management-table>
+<app-user-management-form
+  (typeRequest)="processRequest($event)"></app-user-management-form>

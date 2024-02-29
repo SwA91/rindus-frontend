@@ -1,8 +1,9 @@
 import { createReducer, on } from '@ngrx/store';
-import * as Actions from './users.action';
+import * as usersAction from './users.action';
+import { UserDataResponse } from '@app/modules/dashboard/models/UserResponse';
 
 export interface UsersState {
-  users: any[];
+  users: UserDataResponse[];
   payload: any;
 }
 
@@ -14,10 +15,10 @@ export const usersInitialState: UsersState = {
 export const usersReducer = createReducer(
   usersInitialState,
 
-  on(Actions.loadUsersAction, (state): UsersState => ({ ...state })),
+  on(usersAction.loadUsersAction, (state): UsersState => ({ ...state })),
 
   on(
-    Actions.loadUsersSuccessAction,
+    usersAction.loadUsersSuccessAction,
     (state, { users }): UsersState => ({
       ...state,
       payload: null,
@@ -26,7 +27,7 @@ export const usersReducer = createReducer(
   ),
 
   on(
-    Actions.loadUsersErrorAction,
+    usersAction.loadUsersErrorAction,
     (state, { payload }): UsersState => ({
       ...state,
       payload: { ...payload },

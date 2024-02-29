@@ -1,4 +1,4 @@
-import { UserDataResponse } from '@app/modules/dashboard/models/UserDataResponse';
+import { UserDataResponse } from '@app/modules/dashboard/models/UserResponse';
 import { createAction, props } from '@ngrx/store';
 
 export enum UsersActionType {

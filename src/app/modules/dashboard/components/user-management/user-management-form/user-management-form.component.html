@@ -1,28 +1,47 @@
 <div class="px-4 mt-8 sm:px-8">
-  <form class="max-w-lg mx-auto">
+  <form class="max-w-lg mx-auto" [formGroup]="userManagementForm">
     <mat-form-field class="w-full">
       <mat-label>User ID</mat-label>
-      <input matInput value="1" />
+      <input matInput formControlName="id" name="id" type="number" />
     </mat-form-field>
 
     <mat-form-field class="w-full">
       <mat-label>First Name</mat-label>
-      <input matInput value="John" />
+      <input matInput formControlName="name" name="name" type="text" />
     </mat-form-field>
 
     <mat-form-field class="w-full">
       <mat-label>Last Name</mat-label>
-      <input matInput value="Smith" />
+      <input type="text" matInput formControlName="surname" />
     </mat-form-field>
 
     <mat-form-field class="w-full">
       <mat-label>Email</mat-label>
-      <input matInput value="john@gmail.com" />
+      <input type="email" matInput formControlName="email" />
     </mat-form-field>
+    <div class="flex justify-center">
+      <button
+        (click)="requestAction(UserTypeOperation.ADD)"
+        name="add"
+        [disabled]="disabledButton(UserTypeOperation.ADD)"
+        mat-raised-button>
+        Add
+      </button>
+      <button
+        [disabled]="disabledButton(UserTypeOperation.UPDATE)"
+        (click)="requestAction(UserTypeOperation.UPDATE)"
+        name="update"
+        mat-raised-button
+        class="mx-2">
+        Update
+      </button>
+      <button
+        [disabled]="disabledButton(UserTypeOperation.DELETE)"
+        (click)="requestAction(UserTypeOperation.DELETE)"
+        name="delete"
+        mat-raised-button>
+        Delete
+      </button>
+    </div>
   </form>
-  <div class="flex justify-center">
-    <button mat-raised-button>Add</button>
-    <button mat-raised-button class="mx-2">Update</button>
-    <button mat-raised-button>Delete</button>
-  </div>
 </div>

@@ -1,4 +1,4 @@
-<div class="mat-elevation-z8">
+<div class="mat-elevation-z8 w-full">
   <table mat-table [dataSource]="dataSource" matSort>
     <!-- ID Column -->
     <ng-container matColumnDef="id">
@@ -25,7 +25,11 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    <tr
+      mat-row
+      (click)="sendSelectedRow(row)"
+      [class.row-is-clicked]="clickedRow?.id === row.id"
+      *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
 
   <mat-paginator
