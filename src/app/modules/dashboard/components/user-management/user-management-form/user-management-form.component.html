@@ -16,6 +16,15 @@
           characters)</mat-error
         >
       }
+
+      @if (name?.hasError('maxlength') && !name?.hasError('required')) {
+        <mat-error
+          >Name too long (maximum
+          {{ name?.getError('maxlength')['requiredLength'] }}
+          characters)</mat-error
+        >
+      }
+
       @if ((name?.dirty || name?.touched) && name?.hasError('required')) {
         <mat-error>Name is <strong>required</strong></mat-error>
       }
@@ -24,6 +33,7 @@
     <mat-form-field class="w-full">
       <mat-label>Last Name</mat-label>
       <input type="text" matInput formControlName="surname" />
+
       @if (surname?.hasError('minlength') && !surname?.hasError('required')) {
         <mat-error
           >Surname too short (minimum
@@ -31,7 +41,18 @@
           characters)</mat-error
         >
       }
-      @if ((surname?.dirty || surname?.touched) && surname?.hasError('required')) {
+
+      @if (surname?.hasError('maxlength') && !surname?.hasError('required')) {
+        <mat-error
+          >Surname too long (maximum
+          {{ surname?.getError('maxlength')['requiredLength'] }}
+          characters)</mat-error
+        >
+      }
+
+      @if (
+        (surname?.dirty || surname?.touched) && surname?.hasError('required')
+      ) {
         <mat-error>Surname is <strong>required</strong></mat-error>
       }
     </mat-form-field>

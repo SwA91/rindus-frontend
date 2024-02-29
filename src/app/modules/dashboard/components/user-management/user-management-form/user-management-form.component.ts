@@ -65,7 +65,9 @@ export class UserManagementFormComponent
   requestAction(typeRequest: EUserTypeOperation) {
     if (
       this.userManagementForm.valid &&
-      (this.userManagementForm.touched || this.userManagementForm.dirty)
+      (typeRequest === EUserTypeOperation.DELETE ||
+        this.userManagementForm.touched ||
+        this.userManagementForm.dirty)
     ) {
       this.currentOperation = typeRequest;
       this.typeRequest.emit({
@@ -93,12 +95,21 @@ export class UserManagementFormComponent
   get resetForm() {
     return new FormGroup({
       id: new FormControl({ value: null, disabled: true }),
-      name: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      name: new FormControl('', [
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(250),
+      ]),
       surname: new FormControl('', [
         Validators.required,
         Validators.minLength(4),
+        Validators.maxLength(250),
       ]),
-      email: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl('', [
+        Validators.required,
+        Validators.email,
+        Validators.maxLength(250),
+      ]),
     });
   }
 
